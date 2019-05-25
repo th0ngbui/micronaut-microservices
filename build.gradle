@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
+    }
+}
+
+subprojects { project ->
+
+    apply plugin: "io.spring.dependency-management"
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        jcenter()
+    }
+
+    println ">>>" + project.path
+    if (project.path.contains('-host')) {
+
+        apply plugin: "application"
+        apply plugin: 'com.github.johnrengelman.shadow'
+        shadowJar {
+            mergeServiceFiles()
+        }
+
+        dependencyManagement {
+            imports {
+                mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
+            }
+        }
+
+    }
+
+    dependencies {
+        if (project.path.contains('-host')) {
+
+            compile "io.micronaut:micronaut-discovery-client"
+            compile "io.micronaut.configuration:micronaut-hibernate-validator"
+            runtime "io.micronaut:micronaut-management"
+            runtime "ch.qos.logback:logback-classic:1.2.3"
+        }
+    }
+
+}
