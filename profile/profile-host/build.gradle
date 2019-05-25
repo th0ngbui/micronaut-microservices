@@ -4,7 +4,6 @@ mainClassName = 'com.egopulse.profile.service.Application'
 
 dependencies {
 
-    compile project(":profile:profile-api")
     compile project(":profile:profile-domain")
 
     annotationProcessor "io.micronaut:micronaut-inject-java"
@@ -27,7 +26,7 @@ shadowJar {
     mergeServiceFiles()
 }
 
-tasks.withType(JavaCompile){
+tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
     options.compilerArgs.add('-parameters')
 }

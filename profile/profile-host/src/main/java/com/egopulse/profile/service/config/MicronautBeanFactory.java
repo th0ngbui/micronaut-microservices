@@ -10,7 +10,7 @@ import javax.inject.Singleton;
 public class MicronautBeanFactory {
 
     @Singleton
-    ProfileUsecase profileUsecase(){
+    ProfileUsecase profileUsecase() {
         return new ProfileUsecaseDefaultImpl();
     }
 }

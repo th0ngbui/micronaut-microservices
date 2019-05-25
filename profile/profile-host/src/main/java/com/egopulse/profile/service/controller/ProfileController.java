@@ -13,12 +13,12 @@ import io.reactivex.Single;
 import javax.inject.Inject;
 
 @Controller("/profile")
-public class ProfileController implements ProfileUsecase{
+public class ProfileController implements ProfileUsecase {
 
     @Inject
     ProfileUsecase profileUsecase;
 
-    @Post(consumes = MediaType.APPLICATION_JSON ,produces = MediaType.APPLICATION_JSON)
+    @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public Single<UserProfile> enrollUser(@Body UserProfile userProfile) {
         profileUsecase.enrollUser(userProfile);
         return Single.just(userProfile);
