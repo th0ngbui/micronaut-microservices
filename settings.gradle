@@ -1,21 +1,9 @@
 rootProject.name = 'micronaut-microservices'
 
-//include ":chat:chat-api"
-//include ":chat:chat-model"
-//include ":chat:chat-service"
-//
-//include ":medication-plan:medication-plan-api"
-//include ":medication-plan:medication-plan-model"
-//include ":medication-plan:medication-plan-service"
-//
-//include ":notification:notification-api"
-//include ":notification:notification-model"
-//include ":notification:notification-service"
-//
-//include ":practice:practice-api"
-//include ":practice:practice-model"
-//include ":practice:practice-service"
+include "practice-application:practice-api"
+include "practice-application:practice-domain"
+include "practice-application:practice-host"
 
-include "profile:profile-api"
-include "profile:profile-domain"
-include "profile:profile-host"
+include "profile-service:profile-api"
+include "profile-service:profile-domain"
+include "profile-service:profile-host"
