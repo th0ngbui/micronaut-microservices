@@ -52,3 +52,8 @@ subprojects { project ->
     }
 
 }
+
+wrapper {
+    gradleVersion = '5.0'
+    distributionUrl = distributionUrl.replace("bin", "all")
+}
