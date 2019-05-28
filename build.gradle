@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.2"
+        classpath "com.github.jengelman.gradle.plugins:shadow:5.0.0"
         classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
     }
 }
@@ -27,6 +27,7 @@ subprojects { project ->
     println ">>>" + project.path
     if (project.path.contains('-host')) {
 
+        apply plugin: "java"
         apply plugin: "application"
         apply plugin: 'com.github.johnrengelman.shadow'
         shadowJar {
@@ -39,21 +40,55 @@ subprojects { project ->
             }
         }
 
-    }
+        dependencies {
+            annotationProcessor "io.micronaut:micronaut-inject-java"
+            annotationProcessor "io.micronaut.configuration:micronaut-openapi"
+            annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
 
-    dependencies {
-        if (project.path.contains('-host')) {
+            compileOnly "io.micronaut:micronaut-inject-java"
+            compileOnly "org.projectlombok:lombok:${lombokVersion}"
 
-            compile "io.micronaut:micronaut-discovery-client"
+            compile "io.micronaut.configuration:micronaut-openapi"
             compile "io.micronaut.configuration:micronaut-hibernate-validator"
+            compile "io.micronaut:micronaut-http-server-netty"
+            compile "io.micronaut:micronaut-discovery-client"
+            compile "io.micronaut:micronaut-runtime"
+
             runtime "io.micronaut:micronaut-management"
             runtime "ch.qos.logback:logback-classic:1.2.3"
+
+            testCompile "junit:junit:4.12"
+            testCompile "io.micronaut:micronaut-inject-java"
+            testCompile "io.micronaut:micronaut-http-client"
         }
     }
 
+    if (project.path.contains('-api')) {
+        apply plugin: "java"
+        dependencies {
+            annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+            compileOnly "org.projectlombok:lombok:${lombokVersion}"
+            compile 'io.reactivex.rxjava2:rxjava:2.2.2'
+        }
+    }
+
+    if (project.path.contains('-domain')) {
+        apply plugin: "java"
+        dependencies {
+            annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+            compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+            compile 'io.reactivex.rxjava2:rxjava:2.2.2'
+            compile 'org.apache.commons:commons-lang3:3.8.1'
+            compile 'net.sf.dozer:dozer:5.5.1'
+        }
+    }
 }
 
 wrapper {
     gradleVersion = '5.0'
-    distributionUrl = distributionUrl.replace("bin", "all")
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

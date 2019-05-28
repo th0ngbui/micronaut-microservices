@@ -20,8 +20,7 @@ public class ProfileController implements ProfileUsecase {
 
     @Post(consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public Single<UserProfile> enrollUser(@Body UserProfile userProfile) {
-        profileUsecase.enrollUser(userProfile);
-        return Single.just(userProfile);
+        return profileUsecase.enrollUser(userProfile);
     }
 
     @Get(produces = MediaType.APPLICATION_JSON)

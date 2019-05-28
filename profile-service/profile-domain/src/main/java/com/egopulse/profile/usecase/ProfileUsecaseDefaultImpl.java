@@ -4,6 +4,7 @@ import com.egopulse.profile.api.ProfileUsecase;
 import com.egopulse.profile.api.model.UserProfile;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +17,13 @@ public class ProfileUsecaseDefaultImpl implements ProfileUsecase {
     @Override
     public Single<UserProfile> enrollUser(UserProfile userProfile) {
 
+        if (StringUtils.isEmpty(userProfile.getName())) {
+            return Single.error(new RuntimeException("Name cannot be emtpy"));
+        }
+
         String generatedId = UUID.randomUUID().toString();
         userProfile.setId(generatedId);
+
         userProfiles.add(userProfile);
         return Single.just(userProfile);
     }

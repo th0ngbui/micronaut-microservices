@@ -1,15 +1,19 @@
 micronaut:
   application:
-    name: hello-world
+    name: profile-service
   server:
-    port: 8080
+    port: -1
   router:
     static-resources:
       swagger:
         enabled: true
         paths: classpath:META-INF/swagger
         mapping: /swagger/**
-
+consul:
+  client:
+    registration:
+      enabled: true
+    defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
 
 # Uncomment the following lines to enable Consul support
 #consul.client.config.enabled=true
