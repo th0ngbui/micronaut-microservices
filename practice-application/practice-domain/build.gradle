@@ -1,6 +1,5 @@
-apply plugin: "java"
-
 dependencies {
     compile project(":practice-application:practice-api")
     compile project(":profile-service:profile-api")
+    compile project(":notification-service:notification-api")
 }

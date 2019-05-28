@@ -6,6 +6,7 @@ dependencies {
 
     compile project(":practice-application:practice-domain")
     compile project(":profile-service:profile-api")
+    compile project(":notification-service:notification-api")
 }
 
 shadowJar {

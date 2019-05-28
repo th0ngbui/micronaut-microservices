@@ -7,3 +7,7 @@ include "practice-application:practice-host"
 include "profile-service:profile-api"
 include "profile-service:profile-domain"
 include "profile-service:profile-host"
+
+include "notification-service:notification-api"
+include "notification-service:notification-domain"
+include "notification-service:notification-host"

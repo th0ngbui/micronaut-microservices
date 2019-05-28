@@ -1,0 +1,12 @@
+apply plugin: "java"
+
+mainClassName = 'com.egopulse.notification.service.Application'
+
+dependencies {
+
+    compile project(":notification-service:notification-domain")
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
