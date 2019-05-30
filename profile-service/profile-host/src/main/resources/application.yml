@@ -15,6 +15,12 @@ consul:
       enabled: true
     defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
 
+tracing:
+  jaeger:
+    enabled: true
+    sampler:
+      probability: 1
+
 # Uncomment the following lines to enable Consul support
 #consul.client.config.enabled=true
 #consul.client.config.format=properties

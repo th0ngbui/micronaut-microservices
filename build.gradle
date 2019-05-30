@@ -53,6 +53,8 @@ subprojects { project ->
             compile "io.micronaut:micronaut-http-server-netty"
             compile "io.micronaut:micronaut-discovery-client"
             compile "io.micronaut:micronaut-runtime"
+            compile "io.micronaut:micronaut-tracing"
+            compile 'io.jaegertracing:jaeger-thrift'
 
             runtime "io.micronaut:micronaut-management"
             runtime "ch.qos.logback:logback-classic:1.2.3"
