@@ -53,8 +53,14 @@ subprojects { project ->
             compile "io.micronaut:micronaut-http-server-netty"
             compile "io.micronaut:micronaut-discovery-client"
             compile "io.micronaut:micronaut-runtime"
+
+//            Open tracing
+//            compile 'org.graylog2:gelfj:1.1.16'
             compile "io.micronaut:micronaut-tracing"
+            compile "io.opentracing.brave:brave-opentracing"
             compile 'io.jaegertracing:jaeger-thrift'
+//            https://github.com/osiegmar/logback-gelf
+            compile 'de.siegmar:logback-gelf:2.0.1'
 
             runtime "io.micronaut:micronaut-management"
             runtime "ch.qos.logback:logback-classic:1.2.3"

@@ -1,14 +1,43 @@
 <configuration>
 
+    <!--<include resource="org/springframework/boot/logging/logback/defaults.xml"/>-->
+    <springProperty scope="context" name="springAppName" source="micronaut.application.name"/>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+
+            <!--<pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n
+            </pattern>-->
+            <pattern>[%X{uber-trace-id:-}/%X{X-B3-TraceId:-}/%X{traceId}/%X{spanId}/%X{SpanID}] [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>utf8</charset>
+
+            <!--<pattern>%d{HH:mm:ss.SSS} [${springAppName:-},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}] [%X{traceId}/%X{spanId}] %green([%thread]) %highlight(%-5level) %logger{36} - %msg%n</pattern>-->
+        </encoder>
+        <mdcFields>X-B3-TraceId,X-B3-SpanId</mdcFields>
+        <includeFullMdc>true</includeFullMdc>
+        <staticField>app_name:profile-service</staticField>
+    </appender>
+
+    <appender name="GELF" class="de.siegmar.logbackgelf.GelfTcpAppender">
+        <graylogHost>localhost</graylogHost>
+        <graylogPort>12201</graylogPort>
+        <encoder class="de.siegmar.logbackgelf.GelfEncoder">
+            <fullPatternLayout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%m%n</pattern>
+            </fullPatternLayout>
+            <staticField>app_name:profile-service</staticField>
         </encoder>
     </appender>
 
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="GELF" />
     </root>
+
+    <!--<logger name="io.micronaut.http" level="TRACE"/>-->
+    <!--<logger name="io.netty.handler.logging" level="TRACE" />-->
+    <!--<logger name="io.micronaut.jackson.parser" level="TRACE"/>-->
+
 </configuration>
